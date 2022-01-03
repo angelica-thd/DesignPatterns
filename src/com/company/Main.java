@@ -14,6 +14,8 @@ import java.util.UUID;
 public class Main {
 
     public static void main(String[] args) {
+        int numOfPhones = 1;
+        int numOfCustomers = 2;
         List<Phone> smartPhones = new ArrayList<Phone>();
         List<Phone> featurePhones = new ArrayList<Phone>();
 
@@ -32,7 +34,7 @@ public class Main {
         int[] ram = {2,4,6,8};
 
 
-        for (int i= 0; i<=100; i++){
+        for (int i= 0; i<=numOfPhones; i++){
             int sBattery = new Random().nextInt(7000-3000) + 3000;
             int fBattery = new Random().nextInt(1000-400) + 400;
             int fweight = new Random().nextInt(50) + 50;
@@ -74,7 +76,7 @@ public class Main {
                             true,
                             sweight,
                             colors[new Random().nextInt(colors.length-1)],
-                            networks[new Random().nextInt(3)+2],
+                            networks[new Random().nextInt((networks.length-1)/2)+2],
                             os[new Random().nextInt(os.length-1)],
                             processors[new Random().nextInt(processors.length-1)],
                             processorModel[new Random().nextInt(processorModel.length-1)],
@@ -87,10 +89,25 @@ public class Main {
 
             smartPhones.add(smartPhone);
         }
+
+        List<Customer> customersReceived = new ArrayList<>();
+        List<Customer> customersNotReceived = new ArrayList<>();
         //here create more customers -> should be n phones and m customers
-        InterestedCustomer ic = new InterestedCustomer();
-        Customer c = new Customer("angelica", new Random().nextBoolean());
-        ic.subscribe(c);
-        ic.notifySubscribers(c.isInterestedInSmart(),smartPhones,featurePhones);
+        for(int i = 0; i<= numOfCustomers; i++){
+            InterestedCustomer ic = new InterestedCustomer();
+            Customer c = new Customer("user"+ i, new Random().nextBoolean());
+            ic.subscribe(c);
+            ic.notifySubscribers(smartPhones,featurePhones);
+            if (c.hasReceived()) customersReceived.add(c);
+            else customersNotReceived.add(c);
+
+        }
+        System.out.println("CUSTOMERS THAT DIDN'T RECEIVE A PHONE");
+        if(!customersNotReceived.isEmpty()){
+            for (Customer c: customersNotReceived){
+                System.out.println(c.getUsername());
+            }
+        }else System.out.println("NONE");
+
     }
 }

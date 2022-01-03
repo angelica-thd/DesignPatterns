@@ -15,12 +15,16 @@ public class InterestedCustomer {
     public void unsubscribe(Interested interested){
         subscribers.remove(interested);
     }
-    public void notifySubscribers(boolean interestedIn, List<Phone> smartPhones, List<Phone> featurePhones ){
-
+    public void notifySubscribers(List<Phone> smartPhones, List<Phone> featurePhones ){
         System.out.println("Notifying customers...");
         for (Interested interested: subscribers){
-           if(interestedIn) interested.update(smartPhones);
-           else interested.update(featurePhones);
+            List<Phone> allPhones = new ArrayList<>();
+            allPhones.addAll(smartPhones);
+            allPhones.addAll(featurePhones);
+            interested.update(allPhones);
+            for(Phone phone : allPhones){
+                if (interested.interestedIn(phone)) break;
+            }
         }
     }
 
