@@ -90,7 +90,7 @@ public class Main {
             smartPhones.add(smartPhone);
         }
 
-        List<Customer> customersReceived = new ArrayList<>();
+        List<Phone> phonesBought = new ArrayList<>();
         List<Customer> customersNotReceived = new ArrayList<>();
         //here create more customers -> should be n phones and m customers
         for(int i = 0; i<= numOfCustomers; i++){
@@ -98,7 +98,12 @@ public class Main {
             Customer c = new Customer("user"+ i, new Random().nextBoolean());
             ic.subscribe(c);
             ic.notifySubscribers(smartPhones,featurePhones);
-            if (c.hasReceived()) customersReceived.add(c);
+            if (c.hasReceived()) {
+                ic.unsubscribe(c);
+                phonesBought.add(c.getPhoneReceived());
+                if(smartPhones.contains(c.getPhoneReceived())) smartPhones.remove(c.getPhoneReceived());
+                if(featurePhones.contains(c.getPhoneReceived())) featurePhones.remove(c.getPhoneReceived());
+            }
             else customersNotReceived.add(c);
 
         }
@@ -108,6 +113,14 @@ public class Main {
                 System.out.println(c.getUsername());
             }
         }else System.out.println("NONE");
+
+        System.out.println("PHONES BOUGHT");
+        if(!phonesBought.isEmpty()){
+            for (Phone p: phonesBought){
+                System.out.println(p.getPhoneName());
+            }
+        }else System.out.println("NONE");
+
 
     }
 }

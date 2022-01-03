@@ -12,12 +12,17 @@ public class Customer implements Interested{
     private final String username;
     private final boolean interestedInSmart;
     private boolean received;
+    private Phone phoneReceived;
     public String getUsername() {
         return username;
     }
 
     public boolean isInterestedInSmart() {
         return interestedInSmart;
+    }
+
+    public Phone getPhoneReceived() {
+        return phoneReceived;
     }
 
     public Customer(String username, boolean interestedInSmart) {
@@ -36,8 +41,6 @@ public class Customer implements Interested{
         System.out.println("Hey "+username+"! New "+phonetype+" phones in Stock: ");
         for (Phone phone:phones) {
             //System.out.printf(phone.toString()+"\n");
-
-
         }
     }
 
@@ -51,9 +54,14 @@ public class Customer implements Interested{
             System.out.println("Do you want to buy this phone " +phone.getPhoneName()+ "? (y/n) "+yn);
             System.out.println("Perform an action with your new "+ phonetype+" phone");
             performAction(phone);
+            //return phone to delete it from the list after
             received = true;
+            phoneReceived = phone;
         }
-        else received = false;
+        else {
+            received = false;
+            phoneReceived = null;
+        }
 
         return received;
     }
