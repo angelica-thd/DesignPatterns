@@ -16,7 +16,6 @@ public class InterestedCustomer {
         subscribers.remove(interested);
     }
     public void notifySubscribers(List<Phone> smartPhones, List<Phone> featurePhones ){
-        System.out.println("Notifying customers...");
         for (Interested interested: subscribers){
             List<Phone> allPhones = new ArrayList<>();
             allPhones.addAll(smartPhones);

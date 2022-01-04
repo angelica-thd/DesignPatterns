@@ -68,7 +68,7 @@ public class Customer implements Interested{
 
     @Override
     public void performAction(Phone phone) {
-        if (phone.isSmart()) System.out.println("Taking a picture...");
-        else System.out.println("Calling 911...");
+        if (phone.isSmart()) System.out.println("Taking a picture with flash...\n\n");
+        else System.out.println("Calling 911...\n\n");
     }
 }
