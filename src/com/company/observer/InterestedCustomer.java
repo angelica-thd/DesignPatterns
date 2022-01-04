@@ -7,6 +7,8 @@ import java.util.List;
 
 public class InterestedCustomer {
     private List<Interested> subscribers = new ArrayList<>();
+    private List<Phone> allPhones = new ArrayList<>();
+
 
 
     public void subscribe(Interested interested){
@@ -17,10 +19,11 @@ public class InterestedCustomer {
     }
     public void notifySubscribers(List<Phone> smartPhones, List<Phone> featurePhones ){
         for (Interested interested: subscribers){
-            List<Phone> allPhones = new ArrayList<>();
             allPhones.addAll(smartPhones);
             allPhones.addAll(featurePhones);
+
             interested.update(allPhones);
+
             for(Phone phone : allPhones){
                 if (interested.interestedIn(phone)) break;
             }

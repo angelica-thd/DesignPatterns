@@ -28,9 +28,9 @@ public class Main {
         List<Customer> customersNotReceived = new ArrayList<>();
         //here create more customers -> should be n phones and m customers
         System.out.println("Let's notify the customers...\n");
-        for(int i = 0; i<= numOfCustomers; i++){
+        for(int i = 0; i< numOfCustomers; i++){
             InterestedCustomer ic = new InterestedCustomer();
-            Customer c = new Customer("user"+ i, new Random().nextBoolean());
+            Customer c = new Customer("user"+ i);
             ic.subscribe(c);
             ic.notifySubscribers(smartPhones,featurePhones);
             if (c.hasReceived()) {
@@ -42,8 +42,9 @@ public class Main {
             else customersNotReceived.add(c);
 
         }
-        System.out.println("CUSTOMERS THAT DIDN'T RECEIVE A PHONE");
+        System.out.println("\n\nCUSTOMERS THAT DIDN'T RECEIVE A PHONE");
         if(!customersNotReceived.isEmpty()){
+            System.out.println(customersNotReceived.size());
             for (Customer c: customersNotReceived){
                 System.out.println(c.getUsername());
             }
@@ -51,10 +52,11 @@ public class Main {
 
         System.out.println("PHONES BOUGHT");
         if(!phonesBought.isEmpty()){
+            System.out.println(phonesBought.size());
             for (Phone p: phonesBought){
                 System.out.println(p.getPhoneName());
             }
-        }else System.out.println("NONE");
+        }else System.out.println("none");
 
 
     }
